@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/script/memberScript.js"></script>
+</head>
+<body>
+<header>
+    <div th:replace="~{layouts/header}"></div>
+</header>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container" style="width: 500px; margin-top: 100px;">
+    <h2 class="h3 mb-3 fw-normal">Sign-up</h2>
+    <br><br>
+    <form action="memberWrite" name="form1" method="post">
+        <table>
+            <tr>
+                <td style="width: 80px">이름</td>
+                <td>
+                    <input type="text" name="name" class="form-control" size="35">
+                </td>
+
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="id">
+                        <button class="btn btn-outline-secondary" type="button">중복체크</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" name="pwd" size="35" class="form-control"></td>
+            </tr>
+            <tr class="tr_1">
+                <td>재확인</td>
+                <td><input type="password" name="repwd" size="35" class="form-control"></td>
+            </tr>
+            <tr><!--TODO 부트스트랩 적용-->
+                <td>성별</td>
+                <td>
+                    <input type="radio" name="gender" value="m" checked>남
+                    <input type="radio" name="gender" value="f">여
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" name="email1" class="form-control" aria-label="Username">
+                        <span class="input-group-text">@</span>
+                        <select name="email2" class="form-select">
+                            <option selected>select email</option>
+                            <option>naver.com</option>
+                            <option>daum.net</option>
+                            <option>google.com</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>핸드폰</td>
+                <td>
+                    <div class="row g-3">
+                        <div class="col-sm-12 d-flex align-items-center">
+                            <input type="text" class="form-control" name="tel1">
+                        <span class="col-auto d-flex align-items-center">
+                            -
+                        </span>
+                            <input type="text" class="form-control" name="tel2">
+                        <span class="col-auto">
+                            -
+                        </span>
+                            <input type="text" class="form-control" name="tel3">
+                        </div>
+                    </div>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td><input type="text" name="addr" size="35" class="form-control"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 35px 0px;">
+                    <input type="button" value="회원가입" onclick="checkMember()" class="btn btn-primary btn-sm">
+                    <input type="reset" value="다시작성" class="btn btn-primary btn-sm">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+<footer>
+    <div th:replace="~{layouts/footer}"></div>
+</footer>
+</body>
+</html>
