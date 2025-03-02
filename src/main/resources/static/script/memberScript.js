@@ -16,6 +16,10 @@ function checkMember(){
         alert("비밀번호를 확인해주세요");
         return false;
     }
+    if (!frm.tel1.value||!frm.tel2.value||!frm.tel3.value){
+        alert("전화번호를 입력해주세요");
+        return false;
+    }
     frm.submit();
 }
 function checkId(){
@@ -26,14 +30,19 @@ function checkId(){
         document.form1.id.focus();
         return false;
     }else{
-        // target="": 새창으로 연다
-        // window.open("../member/checkId?id="+memId, "_blank",'width=350, height=200, left=400, top=200');
+        // AJAX 요청
+        fetch(`checkId?id=${memId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.result) {
+                    alert("사용 가능한 아이디입니다.");
+                } else {
+                    alert("이미 존재하는 아이디입니다.");
+                    return false; // 폼 제출 방지
+                }
+            })
+            .catch(error => console.error("Error:", error));
     }
-    if(!frm.pwd.value){
-        alert("비밀번호를 입력하세요")
-        return false;
-    }
-    memId.submit();
 }
 function loginMember(){
     var frm=document.form1;

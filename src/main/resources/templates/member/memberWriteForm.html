@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
@@ -13,7 +13,7 @@
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<div class="container" style="width: 500px; margin-top: 100px;">
+<div class="container" style="width: 480px; margin-top: 90px;">
     <h2 class="h3 mb-3 fw-normal">Sign-up</h2>
     <br><br>
     <form action="memberWrite" name="form1" method="post">
@@ -30,7 +30,7 @@
                 <td>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="id">
-                        <button class="btn btn-outline-secondary" type="button">중복체크</button>
+                        <input class="btn btn-outline-secondary" value="중복체크" type="button" onclick="checkId()">
                     </div>
                 </td>
             </tr>
@@ -42,11 +42,15 @@
                 <td>재확인</td>
                 <td><input type="password" name="repwd" size="35" class="form-control"></td>
             </tr>
-            <tr><!--TODO 부트스트랩 적용-->
+            <tr>
                 <td>성별</td>
                 <td>
-                    <input type="radio" name="gender" value="m" checked>남
-                    <input type="radio" name="gender" value="f">여
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="m" checked>남
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="f" >여
+                    </div>
                 </td>
             </tr>
             <tr>

@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+        setTimeout(function () {
+            if ([[${result}]]){
+                alert("회원가입 성공");
+                location.href="/";
+            }else{
+                alert("회원가입 실패");
+                history.back();
+            }
+        },500)
+
+    </script>
 </head>
 <body>
 
