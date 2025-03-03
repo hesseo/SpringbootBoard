@@ -5,6 +5,7 @@ import com.example.springbootboard.dto.MemberDTO;
 import com.example.springbootboard.entity.Member;
 import com.example.springbootboard.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +13,59 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+//TODO entity와 DTO 변환위치 고민
 @Controller
 public class MemberController {
 
     @Autowired
     MemberService memberService;
+
+    @PostMapping("/memberModify")
+    public String memberModify(MemberDTO dto, HttpServletRequest request, Model model){
+        boolean result=false;
+        dto.setLogtime(new Date());
+        Member member=memberService.updateMember(dto);
+        if (member!=null){
+            result=true;
+        }
+        model.addAttribute("result", result);
+        return "/member/memberModify";
+    }
+
+    @GetMapping("/memberModifyForm")
+    public String modifyMemberForm(HttpServletRequest request, Model model){
+        HttpSession session=request.getSession();
+        Member member=memberService.selectMember((String) session.getAttribute("id"));
+        model.addAttribute("member", member);
+        return "/member/memberModifyForm";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session=request.getSession();
+        session.removeAttribute("id");
+        session.removeAttribute("name");
+        session.invalidate();
+        return "/member/logout";
+    }
+    @PostMapping("/login")
+    public String login(Model model, HttpServletRequest request){
+        boolean result=false;
+        HttpSession session=request.getSession();
+        String id=request.getParameter("id");
+        String pwd=request.getParameter("pwd");
+        Member member=memberService.loginMember(id,pwd);
+        if (member!=null){
+            session.setAttribute("id",id);
+            session.setAttribute("name",member.getName());
+            result=true;
+        }
+        model.addAttribute("result",result);
+
+        return "/member/login";
+    }
     @GetMapping("/loginForm")
     public String loginForm(){
         return "/member/loginForm";
@@ -41,6 +87,7 @@ public class MemberController {
     @PostMapping("/memberWrite")
     public String memberWrite(MemberDTO dto, HttpServletRequest request, Model model){
         boolean result=false;
+        dto.setLogtime(new Date());
         Member member=memberService.insertMember(dto);
         if(member!=null){
             result=true;

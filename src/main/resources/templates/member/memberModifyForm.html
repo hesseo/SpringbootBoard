@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보 수정</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script src="/script/memberScript.js"></script>
+</head>
+<body>
+<header>
+    <div th:replace="~{layouts/header}"></div>
+</header>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container" style="width: 480px; margin-top: 90px;">
+    <h2 class="h3 mb-3 fw-normal">Sign-up</h2>
+    <br><br>
+    <form action="memberModify" name="form1" method="post">
+        <table>
+            <tr>
+                <td style="width: 80px">이름</td>
+                <td>
+                    <input type="text" name="name" class="form-control" size="35" th:value="${member.name}">
+                </td>
+
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td>
+                    <div class="input-group mb-3">
+                        <input type="text" readonly class="form-control-plaintext" name="id" th:value="${member.id}">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" name="pwd" size="35" class="form-control"></td>
+            </tr>
+            <tr class="tr_1">
+                <td>재확인</td>
+                <td><input type="password" name="repwd" size="35" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>성별</td>
+                <td>
+
+                        <th:block th:if="${member.gender=='m'}">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="m" checked>남
+                            </div>
+                                <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="f">여
+                                </div>
+                        </th:block>
+
+                        <th:block th:if="${member.gender=='f'}">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="m">남
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" value="f" checked>여
+                            </div>
+                        </th:block>
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <div class="input-group">
+                        <input type="text" name="email1" class="form-control" aria-label="Username" th:value="${member.email1}">
+                        <span class="input-group-text">@</span>
+                        <select name="email2" class="form-select">
+                            <option selected>[[${member.email2}]]</option>
+                            <option>naver.com</option>
+                            <option>daum.net</option>
+                            <option>google.com</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>핸드폰</td>
+                <td>
+                    <div class="row g-3">
+                        <div class="col-sm-12 d-flex align-items-center">
+                            <input type="text" class="form-control" name="tel1" th:value="${member.tel1}">
+                            <span class="col-auto d-flex align-items-center">
+                            -
+                        </span>
+                            <input type="text" class="form-control" name="tel2" th:value="${member.tel2}">
+                            <span class="col-auto">
+                            -
+                        </span>
+                            <input type="text" class="form-control" name="tel3" th:value="${member.tel3}">
+                        </div>
+                    </div>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td><input type="text" name="addr" size="35" class="form-control" th:value="${member.addr}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 35px 0px;">
+                    <input type="button" value="수정하기" onclick="checkMember()" class="btn btn-primary btn-sm">
+                    <input type="reset" value="다시작성" class="btn btn-primary btn-sm">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+<footer>
+    <div th:replace="~{layouts/footer}"></div>
+</footer>
+</body>
+</html>

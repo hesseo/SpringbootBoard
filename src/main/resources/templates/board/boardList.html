@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{layouts/header}"></div>
+</header>
+
+<div class="container" style="margin: 100px 400px;">
+    <h3>board</h3>
+    <!--검색-->
+        <div class="input-group mb-3" style="width: 500px; margin-left: 100px;">
+            <input type="text" class="form-control" name="title" placeholder="검색어를 입력해주세요.">
+            <input class="btn btn-outline-secondary" value="검색" type="button">
+        </div>
+<form>
+    <table class="table table-hover" style="width: 800px;">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">title</th>
+            <th scope="col">name</th>
+            <th scope="col">date</th>
+            <th scope="col">hit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board: ${paging}">
+            <th scope="row">[[${board.seq}]]</th>
+            <td>[[${board.subject}]]</td>
+            <td>[[${board.content}]]</td>
+            <td>[[${board.logtime}]]</td>
+            <td>[[${board.hit}]]</td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</div>
+<footer>
+    <div th:replace="~{layouts/footer}"></div>
+</footer>
+</body>
+</html>

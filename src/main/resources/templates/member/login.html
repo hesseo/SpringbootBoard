@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        setTimeout(function () {
+            if ([[${result}]]){
+                alert("로그인 성공")
+                location.href="/";
+            }else{
+                alert("로그인 실패");
+                history.back();
+            }
+        },1000)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

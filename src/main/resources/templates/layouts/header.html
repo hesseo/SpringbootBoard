@@ -1,7 +1,16 @@
-
+<!--TODO 네비게이션바 로 수정-->
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="auto" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <script>
+    function confirm_logout(){
+      if (confirm("로그아웃하시겠습니까?")){
+        location.href="logout";
+      }else {
+        return false;
+      }
+    }
+  </script>
   <script src="/docs/5.3/assets/js/color-modes.js"></script>
 
   <meta charset="utf-8">
@@ -159,8 +168,14 @@
       </ul>
 
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='loginForm'">Login</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='memberWriteForm'">Sign-up</button>
+        <th:block th:if="${session.id == null}">
+          <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='loginForm'">Login</button>
+          <button type="button" class="btn btn-primary" onclick="location.href='memberWriteForm'">Sign-up</button>
+        </th:block>
+        <th:block th:if="${session.id !=null}">
+          <button type="button" class="btn btn-outline-primary me-2" onclick="confirm_logout()">Logout</button>
+          <button type="button" class="btn btn-primary" onclick="location.href='memberModifyForm'">MyPage</button> <!--회원정보 수정-->
+        </th:block>
       </div>
     </header>
   </div>
