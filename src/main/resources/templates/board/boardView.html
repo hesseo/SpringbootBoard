@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+</head>
+<body>
+<header>
+    <div th:replace="~{layouts/header}"></div>
+</header>
+
+<div layout:fragment="content" class="container my-3">
+    <h3>board</h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">title</th>
+                <th scope="col">name</th>
+                <th scope="col">date</th>
+                <th scope="col">hit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board: ${paging}">
+                <th scope="row">[[${board.seq}]]</th>
+                <td><a th:href="@{boardView(seq=${board.seq},pg=${paging.number})}">[[${board.subject}]]</a></td>
+                <td>[[${board.content}]]</td>
+                <td>[[${board.logtime}]]</td>
+                <td>[[${board.hit}]]</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+
+    </form>
+</div>
+<footer>
+    <div th:replace="~{layouts/footer}"></div>
+</footer>
+</body>
+</html>
