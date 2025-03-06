@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -23,7 +24,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-    @PostMapping("/memberModify")
+    @PutMapping("/memberModify")
     public String memberModify(MemberDTO dto, HttpServletRequest request, Model model){
         boolean result=false;
         dto.setLogtime(new Date());
@@ -42,7 +43,11 @@ public class MemberController {
         model.addAttribute("member", member);
         return "/member/memberModifyForm";
     }
-    @GetMapping("/logout")
+    @PostMapping("/logout")
+    // RESTful API 원칙 때문에
+    // get: 데이터 조회할 때 post/put/delete: 데이터 변경할 때
+    //                      put: 데이터 수정, post: 새로운 데이터 생성
+    // 로그아웃-> 서버에 있는 세션 변경이므로 post가 적합
     public String logout(HttpServletRequest request){
         HttpSession session=request.getSession();
         session.removeAttribute("id");

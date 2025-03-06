@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>게시글 목록</title>
@@ -9,15 +9,15 @@
     <div th:replace="~{layouts/header}"></div>
 </header>
 
-<div class="container" style="margin: 100px 400px;">
+<div layout:fragment="content" class="container my-3">
     <h3>board</h3>
     <!--검색-->
-        <div class="input-group mb-3" style="width: 500px; margin-left: 100px;">
-            <input type="text" class="form-control" name="title" placeholder="검색어를 입력해주세요.">
+        <div class="input-group mb-3" style="width: 500px;">
+            <input type="text" class="form-control" namem="title" placeholder="검색어를 입력해주세요.">
             <input class="btn btn-outline-secondary" value="검색" type="button">
         </div>
 <form>
-    <table class="table table-hover" style="width: 800px;">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th scope="col"></th>
@@ -30,16 +30,47 @@
         <tbody>
         <tr th:each="board: ${paging}">
             <th scope="row">[[${board.seq}]]</th>
-            <td>[[${board.subject}]]</td>
+            <td><a th:href="@{boardView(seq=${board.seq},pg=${paging.number})}">[[${board.subject}]]</a></td>
             <td>[[${board.content}]]</td>
             <td>[[${board.logtime}]]</td>
             <td>[[${board.hit}]]</td>
         </tr>
-        <tr>
-            <td colspan="4"></td>
-        </tr>
         </tbody>
     </table>
+                <div th:if="${!paging.isEmpty()}">
+                    <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${paging.hasPrevious()}">
+                        <a class="page-link" th:href="@{|?page=${(paging.number)-1}|}">
+                            <span>이전</span>
+                        </a>
+                    </li>
+<!--                        <li th:each="page:${#numbers.sequence(1,(paging.totalPages)-1)}"-->
+<!--                            th:if="${page>=(paging.number)-5 and page<=paging.number+5}"-->
+<!--                        th:classappend="${page==paging.number}?'active'" class="page-item">-->
+<!--                            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
+<!--                        </li>-->
+<!--                        <li class="page-item" th:if="${paging.hasNext()}">-->
+<!--                            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
+<!--                                <span>다음</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+                        <li th:each="page:${#numbers.sequence(pg,(paging.totalPages)-1)}"
+                            th:if="${page>=(paging.number)-5 and page<=paging.number+5}"
+                            th:classappend="${page==paging.number}?'active'" class="page-item">
+                            <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                        </li>
+                        <li class="page-item" th:if="${paging.hasNext()}">
+<!--                            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
+                            <a class="page-link" th:href="@{|boardList(pg=${paging.number+1})|}">
+                                <span>다음</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
 </form>
 </div>
 <footer>

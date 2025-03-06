@@ -14,7 +14,7 @@ public class MemberDAO {
     public Member insertMember(MemberDTO dto){
         if (memberRepository.existsById(dto.getId())){
             return null;
-        }else {
+        }else { // 데이터가 존재하지 않으면 저장
             return memberRepository.save(dto.toEntity());
         }
     }

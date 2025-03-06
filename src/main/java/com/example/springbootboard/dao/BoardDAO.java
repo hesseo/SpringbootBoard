@@ -15,4 +15,8 @@ public class BoardDAO {
     public Page<Board> getList(Pageable pageable){
         return boardRepository.findAll(pageable);
     }
+
+    public Board selectboard(int seq) {
+        return boardRepository.findById(seq).orElse(null);
+    }
 }
